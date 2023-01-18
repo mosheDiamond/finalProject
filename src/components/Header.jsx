@@ -4,11 +4,10 @@ import genPerson from '../images/gen-person.jpg'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 export default function Header() {
   return (
-    <Navbar collapseOnSelect expand="lg" dir='rtl' style={{ backgroundColor: "#1c4062" }} className="d-flex justify-content-around align-items-center">
+    <Navbar collapseOnSelect expand="lg" dir='rtl' className="d-flex justify-content-around align-items-center bg-dark-blue">
       <Container>
         <Link to={''} className='col-lg-1 col-4'>
           <img src={siteLogo} alt="" className="img-fluid " />

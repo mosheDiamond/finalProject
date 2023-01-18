@@ -1,20 +1,3 @@
-@media (min-width: 576px) {
-    .position-sm-static {
-      position: static !important;
-    }
-    .position-sm-relative {
-      position: relative !important;
-    }
-    .position-sm-absolute {
-      position: absolute !important;
-    }
-    .position-sm-fixed {
-      position: fixed !important;
-    }
-    .position-sm-sticky {
-      position: sticky !important;
-    }
-  }
   
   @media (min-width: 768px) {
     .position-md-static {
@@ -52,20 +35,24 @@
     }
   }
   
-  @media (min-width: 1200px) {
-    .position-xl-static {
-      position: static !important;
+  .bg-light-indigo {
+    background-color:#c5b3e6;
+  }
+
+  .bg-dark-blue {
+    background-color:#1c4062;
+  }
+  
+  @media (min-width: 992px) {
+    .full-lg-page {
+      height:85vh;
     }
-    .position-xl-relative {
-      position: relative !important;
-    }
-    .position-xl-absolute {
-      position: absolute !important;
-    }
-    .position-xl-fixed {
-      position: fixed !important;
-    }
-    .position-xl-sticky {
-      position: sticky !important;
+    .flex-lg-row {
+      flex-direction: row;
     }
   }
+  
+
+
+
+
