@@ -19,7 +19,7 @@ export default function Header() {
             <img src={genPerson} alt="" className="img-fluid" style={{ mixBlendMode: 'color-burn' }} />
           </div>
         </Link>
-        <Link to={'../../signin'} className="d-none d-lg-block text-decoration-none p-1 fs-4 text-white ">כניסה</Link>
+        <Link to={'../../login'} className="d-none d-lg-block text-decoration-none p-1 fs-4 text-white ">כניסה</Link>
         <span className="d-none d-lg-block text-white fs-4"> / </span>
         <Link to={'../../signup'} className="d-none d-lg-block text-decoration-none p-1 fs-4 text-white ">הרשמה</Link>
       </div>
