@@ -6,6 +6,7 @@ import SignUp from "./components/SignUp";
 import Login from './components/Login'
 import ForgotPassword from "./components/ForgotPassword";
 import { Container } from "react-bootstrap";
+import './style/style.css'
 
 export default function App() {
   return (
