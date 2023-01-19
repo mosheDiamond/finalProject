@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Form, Alert } from "react-bootstrap";
+import { Card, Button, Form, Alert,Container } from "react-bootstrap";
 import { useRef } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useState } from "react";
@@ -30,6 +30,8 @@ export default function ForgotPassword() {
 
   return (
     <>
+    <Container className="d-flex align-items-center justify-content-center" style={{minHeight:'100vh'}}>
+      <div className="w-100" style={{maxWidth:'400px'}}>
       <Card dir="rtl">
         <Card.Body>
           <h2 className="text-center mb-4">עידכון סיסמא</h2>
@@ -52,6 +54,8 @@ export default function ForgotPassword() {
       <div className="w-100 text-center mt-2">
        איך לכם חשבון? <Link to={'/signup'}>הירשמו</Link>
       </div>
+      </div>
+      </Container>
     </>
   );
 }

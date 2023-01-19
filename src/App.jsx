@@ -15,27 +15,9 @@ export default function App() {
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
-      <Route path="/signup" element={   <Container className="d-flex align-items-center justify-content-center" style={{minHeight:'100vh'}}>
-      <div className="w-100" style={{maxWidth:'400px'}}>
-      <SignUp/>
-      </div>
-    </Container>}/>
-      <Route path="/login" element={
-      <Container className="d-flex align-items-center justify-content-center" style={{minHeight:'100vh'}}>
-      <div className="w-100" style={{maxWidth:'400px'}}>
-      <Login/>
-      </div>
-    </Container>
-    }/>
-    <Route path="/forgotPassword" element={
-      <Container className="d-flex align-items-center justify-content-center" style={{minHeight:'100vh'}}>
-      <div className="w-100" style={{maxWidth:'400px'}}>
-      <ForgotPassword/>
-      </div>
-
-    </Container>
-    }/>
-
+      <Route path="/signup" element={<SignUp/>}/>
+      <Route path="/login" element={<Login/>}/>
+      <Route path="/forgotPassword" element={<ForgotPassword/>}/>
     </Routes>
     </>
   )

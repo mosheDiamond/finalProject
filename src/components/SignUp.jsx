@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Button, Form, Alert } from "react-bootstrap";
+import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useState } from "react";
@@ -31,6 +31,8 @@ export default function SignUp() {
 
   return (
     <>
+    <Container className="d-flex align-items-center justify-content-center" style={{minHeight:'100vh'}}>
+      <div className="w-100" style={{maxWidth:'400px'}}>
       <Card dir="rtl">
         <Card.Body>
           <h2 className="text-center mb-4">הרשמה</h2>
@@ -57,6 +59,8 @@ export default function SignUp() {
       <div className="w-100 text-center mt-2">
        יש לך כבר חשבון? <Link to={'/login'}>היכנס</Link>
       </div>
+      </div>
+      </Container>
     </>
   );
 }

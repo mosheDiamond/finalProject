@@ -5,8 +5,14 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
+import { useAuth } from "../Context/AuthContext";
 
 export default function Header() {
+  const{currenUserInfoState, setCurrenUserInfoState} = useCurrenUserInfo();
+  const {logout} = useAuth();
+
   return (
     <Navbar collapseOnSelect expand="lg" dir='rtl' className="bg-dark-blue">
       <Container>
@@ -18,6 +24,13 @@ export default function Header() {
           <Nav className="col-4 d-lg-flex justify-content-evenly align-items-center ">
             <Link to={'../../'} className='link-light text-decoration-none fs-4'>דף הבית</Link>
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
+            {(currenUserInfoState)?
+              (<>
+              <Link to={'../../user/details/:userid'} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
+              <NavDropdown title="ילדים" id="navbarScrollingDropdown">
+            {/* אפשרות לנווט בין הילדים */}
+            </NavDropdown>
+            </>):null}
           </Nav>
         </Navbar.Collapse>
         <Dropdown className="  m-3 m-md-0 position-absolute position-lg-static end-50 top-0 col-2 col-md-1">
@@ -27,8 +40,10 @@ export default function Header() {
               </div>
             </Dropdown.Toggle>
           <Dropdown.Menu className="bg-nothing">
-            <Dropdown.Item><Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link></Dropdown.Item>
-            <Dropdown.Item><Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link></Dropdown.Item>
+          {(currenUserInfoState)?
+              (<Dropdown.Item><Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link></Dropdown.Item>):
+              (<><Dropdown.Item><Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link></Dropdown.Item>
+            <Dropdown.Item><Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link></Dropdown.Item></>)}
           </Dropdown.Menu>
         </Dropdown>
 
