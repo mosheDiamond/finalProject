@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import {getAuth} from 'firebase/auth';
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 
 
@@ -21,6 +22,7 @@ const app = initializeApp(firebaseConfig);
 export const firestore = getFirestore(app);
 export const auth=getAuth(app);
 
-
+export const db = getFirestore(app);
+await setDoc(doc(db, "cities", "new-city-id"), data);
 
 const analytics = getAnalytics(app);
