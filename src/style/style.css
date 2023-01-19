@@ -39,20 +39,18 @@
     background-color:#c5b3e6;
   }
 
-  .bg-dark-blue {
+  .bg-dark-blue :hover :active  :checked  :focus :enabled {
     background-color:#1c4062;
   }
-  .bg-dark-blue :hover {
+   .bg-dark-blue  {
     background-color:#1c4062 !important;
   }
-  .bg-dark-blue :active {
-    background-color:#1c4062 !important;
+
+  .bg-nothing {
+    background-color:white;
   }
-  .bg-dark-blue :checked {
-    background-color:#1c4062 !important;
-  }
-  .bg-dark-blue :focus {
-    background-color:#1c4062 !important;
+  .bg-nothing :hover :active :checked :focus :enabled {
+    background-color:white !important;
   }
   
   @media (min-width: 992px) {

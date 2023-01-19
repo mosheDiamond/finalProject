@@ -20,13 +20,13 @@ export default function Header() {
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
           </Nav>
         </Navbar.Collapse>
-        <Dropdown className="m-3 m-md-0 position-absolute position-lg-static end-50 top-0 col-2 col-md-1">
+        <Dropdown className="  m-3 m-md-0 position-absolute position-lg-static end-50 top-0 col-2 col-md-1">
             <Dropdown.Toggle className="bg-dark-blue border-0  "  id="dropdown-basic">
               <div className="col-md-10 border rounded-circle  border-white">
                 <img src={genPerson} alt="" className="img-fluid" style={{ mixBlendMode: 'color-burn' }} />
               </div>
             </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu className="bg-nothing">
             <Dropdown.Item><Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link></Dropdown.Item>
             <Dropdown.Item><Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link></Dropdown.Item>
           </Dropdown.Menu>
