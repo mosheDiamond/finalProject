@@ -35,12 +35,24 @@
     }
   }
   
-  .bg-light-indigo {
+  .bg-light-indigo  {
     background-color:#c5b3e6;
   }
 
   .bg-dark-blue {
     background-color:#1c4062;
+  }
+  .bg-dark-blue :hover {
+    background-color:#1c4062 !important;
+  }
+  .bg-dark-blue :active {
+    background-color:#1c4062 !important;
+  }
+  .bg-dark-blue :checked {
+    background-color:#1c4062 !important;
+  }
+  .bg-dark-blue :focus {
+    background-color:#1c4062 !important;
   }
   
   @media (min-width: 992px) {
@@ -51,6 +63,8 @@
       flex-direction: row;
     }
   }
+
+  
   
 
 
