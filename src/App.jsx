@@ -7,6 +7,7 @@ import Login from './components/Login'
 import ForgotPassword from "./components/ForgotPassword";
 import { Container } from "react-bootstrap";
 import './style/style.css'
+import AboutUs from "./components/AboutUs";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
 
     <Routes>
       <Route path='/' element={<HomePage/>}/>
+      <Route path='/about' element={<AboutUs/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
