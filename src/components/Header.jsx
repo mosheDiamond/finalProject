@@ -11,7 +11,7 @@ import { useAuth } from "../Context/AuthContext";
 
 export default function Header() {
   const{currenUserInfoState, setCurrenUserInfoState} = useCurrenUserInfo();
-  const {logout} = useAuth();
+  const {logout, currentUser} = useAuth();
 
   return (
     <Navbar collapseOnSelect expand="md" dir='rtl' className="bg-dark-blue">
@@ -26,7 +26,7 @@ export default function Header() {
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
             {(currenUserInfoState)?
               (<>
-              <Link to={'../../user/details/:userid'} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
+              <Link to={`../../user/main/${currentUser.uid}`} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
               <NavDropdown title="ילדים" id="navbarScrollingDropdown">
             {/* אפשרות לנווט בין הילדים */}
             </NavDropdown>
@@ -42,8 +42,11 @@ export default function Header() {
           <Dropdown.Menu className="bg-nothing m-2 p-2">
           {(currenUserInfoState)?
               (<Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link>):
-              (<div className="d-flex flex-column text-center"><Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link>
-            <Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link></div>)}
+              (<div className="d-flex flex-column text-center">
+                <Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link>
+                <Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link>
+
+              </div>)}
           </Dropdown.Menu>
         </Dropdown>
 
