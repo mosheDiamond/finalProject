@@ -11,12 +11,12 @@ import { useAuth } from "../Context/AuthContext";
 
 export default function Header() {
   const{currenUserInfoState, setCurrenUserInfoState} = useCurrenUserInfo();
-  const {logout} = useAuth();
+  const {logout, currentUser} = useAuth();
 
   return (
-    <Navbar collapseOnSelect expand="lg" dir='rtl' className="bg-dark-blue">
+    <Navbar collapseOnSelect expand="md" dir='rtl' className="bg-dark-blue">
       <Container>
-        <Link to={''} className='col-lg-2 col-4 '>
+        <Link to={''} className='col-lg-1 col-4 col-md-2 '>
           <img src={siteLogo} alt="" className="img-fluid " />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -26,24 +26,27 @@ export default function Header() {
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
             {(currenUserInfoState)?
               (<>
-              <Link to={'../../user/details/:userid'} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
+              <Link to={`../../user/main/${currentUser.uid}`} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
               <NavDropdown title="ילדים" id="navbarScrollingDropdown">
             {/* אפשרות לנווט בין הילדים */}
             </NavDropdown>
             </>):null}
           </Nav>
         </Navbar.Collapse>
-        <Dropdown className="  m-3 m-md-0 position-absolute position-lg-static end-50 top-0 col-2 col-md-1">
+        <Dropdown className="  m-3 m-md-0 position-absolute position-md-static end-50 top-0 col-2 col-md-1">
             <Dropdown.Toggle className="bg-dark-blue border-0  "  id="dropdown-basic">
               <div className="col-md-10 border rounded-circle  border-white">
                 <img src={genPerson} alt="" className="img-fluid" style={{ mixBlendMode: 'color-burn' }} />
               </div>
             </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-nothing">
+          <Dropdown.Menu className="bg-nothing m-2 p-2">
           {(currenUserInfoState)?
-              (<Dropdown.Item><Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link></Dropdown.Item>):
-              (<><Dropdown.Item><Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link></Dropdown.Item>
-            <Dropdown.Item><Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link></Dropdown.Item></>)}
+              (<Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link>):
+              (<div className="d-flex flex-column text-center">
+                <Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link>
+                <Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link>
+
+              </div>)}
           </Dropdown.Menu>
         </Dropdown>
 
