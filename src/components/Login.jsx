@@ -21,7 +21,7 @@ export default function Login() {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError("failed to log in");
+      setError("שגיאת התחברות נסה שנית!");
     }
     setLoading(false);
   }
