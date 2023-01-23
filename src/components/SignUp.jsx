@@ -3,7 +3,7 @@ import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const emailRef = useRef();
@@ -12,6 +12,7 @@ export default function SignUp() {
   const { signup,currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate=useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -27,6 +28,7 @@ export default function SignUp() {
       setError("שגיאה ביצירת חשבון");
     }
     setLoading(false);
+    navigate('/addDetailes')
   }
 
   return (
@@ -47,7 +49,7 @@ export default function SignUp() {
               <Form.Control type="password" ref={passwordRef} required />
             </Form.Group>
             <Form.Group id="password-confirm">
-              <Form.Label>וידוי סיסמא</Form.Label>
+              <Form.Label>אימות סיסמא</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
             <Button disabled={loading} className="w-100 mt-2" type="submit">
