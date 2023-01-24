@@ -10,8 +10,8 @@ import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
 import { useAuth } from "../Context/AuthContext";
 
 export default function Header() {
-  const{currenUserInfoState, setCurrenUserInfoState} = useCurrenUserInfo();
-  const {logout, currentUser} = useAuth();
+  const{currenUserInfoState} = useCurrenUserInfo();
+  const {logout} = useAuth();
 
   return (
     <Navbar collapseOnSelect expand="md" dir='rtl' className="bg-dark-blue">
@@ -21,15 +21,20 @@ export default function Header() {
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav ">
-          <Nav className="col-4 d-lg-flex justify-content-evenly align-items-center ">
+          <Nav className="col-9 col-lg-6 d-lg-flex justify-content-evenly align-items-center ">
             <Link to={'../../'} className='link-light text-decoration-none fs-4'>דף הבית</Link>
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
             {(currenUserInfoState)?
               (<>
-              <Link to={`../../user/main/${currentUser.uid}`} className='link-light text-decoration-none fs-4'>{/*עמוד הבית הפרטי שלו */}</Link>
-              <NavDropdown title="ילדים" id="navbarScrollingDropdown">
-            {/* אפשרות לנווט בין הילדים */}
+              <Link to={'../../user/main'} className='link-light text-decoration-none fs-4'>מידע אישי</Link>
+            {(currenUserInfoState.childrensInfo.length>0)?(
+              <NavDropdown title="ילדים" className="text-nothing text-decoration-none fs-4 " id="navbarScrollingDropdown">
+                <div className="d-flex flex-column text-center  justify-content-between">
+                {currenUserInfoState.childrensInfo.map((child,i)=>{
+                  return <Link to={`../../child/${child.name}`} className='link-primary text-decoration-none p-1 fs-4'>{child.name}</Link>
+                })}</div>
             </NavDropdown>
+            ):null}
             </>):null}
           </Nav>
         </Navbar.Collapse>
@@ -40,13 +45,16 @@ export default function Header() {
               </div>
             </Dropdown.Toggle>
           <Dropdown.Menu className="bg-nothing m-2 p-2">
-          {(currenUserInfoState)?
-              (<Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link>):
-              (<div className="d-flex flex-column text-center">
+          <div className="d-flex flex-column text-center">{(currenUserInfoState)?
+              (<>
+              <Link to={'../../user/main'} className='link-primary text-decoration-none p-1 fs-4'>שלום {currenUserInfoState.pName}</Link>
+              <Link to={'../../login'} onClick={logout} className="text-decoration-none p-1 fs-4  ">יציאה</Link>
+              </>):
+              (<>
                 <Link to={'../../login'} className="text-decoration-none p-1 fs-4  ">כניסה</Link>
                 <Link to={'../../signup'} className="text-decoration-none p-1 fs-4  ">הרשמה</Link>
 
-              </div>)}
+              </>)}</div>
           </Dropdown.Menu>
         </Dropdown>
 
