@@ -22,17 +22,6 @@ export default function AboutUs() {
             <p class="card-text d-block">Big description</p>
           </div>
         </div>
-        {/* <div class="info-card mb-3 m-md-0">
-          <img src={shlomoProfile} alt="" />
-          <div class="small-description fs-2 fw-bold">שלמה סלומון</div>
-          <div class="big-description">Big description</div>
-        </div> */}
-
-        {/* <div class="info-card">
-          <img src={mosheProfile} alt="" />
-          <div class="small-description fs-2 fw-bold">משה דיימונד</div>
-          <div class="big-description">Big description</div>
-        </div> */}
       </div>
     </div>
   )
