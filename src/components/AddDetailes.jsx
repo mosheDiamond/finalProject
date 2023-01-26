@@ -6,9 +6,8 @@ import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
 import { MdPersonRemove } from "react-icons/md";
 import { IoMdPersonAdd } from "react-icons/io";
 import { uuid4 } from "uuid4";
-import { useCurrenUserInfo } from '../Context/CurrenUserInfoContext'
 import { createAvatar } from '@dicebear/core';
-import * as funEmoji  from '@dicebear/fun-emoji';
+import * as funEmoji from '@dicebear/fun-emoji';
 
 
 
@@ -26,12 +25,6 @@ export default function AddDetailes() {
   function handleSubmit(e) {
     e.preventDefault();
 
-  const [form, setForm] = useState([]);
-  const { setCurrenUserInfoState } = useCurrenUserInfo();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
 
     const UsersDetailes = {
       pName: PnameRef.current.value,
@@ -44,7 +37,7 @@ export default function AddDetailes() {
           age: ageRef.current.value,
         },
       ],
-      childrensInfo: (NumOfChildren > 0)? [...childrenFormState,
+      childrensInfo: (NumOfChildren > 0) ? [...childrenFormState,
       {
         name: nameRef.current.value,
         age: ageRef.current.value,
@@ -141,7 +134,7 @@ export default function AddDetailes() {
         }
       }
 
-      ]:[]
+      ] : []
     };
     setCurrenUserInfoState(UsersDetailes);
     console.log(UsersDetailes);
@@ -161,25 +154,21 @@ export default function AddDetailes() {
     }
 
   }
+
   function removeChield(index) {
     console.log(index);
     const updatedForm = [...childsForm];
-    updatedForm.splice(index,1);
-        setChildsForm(updatedForm);
+    updatedForm.splice(index, 1);
+    setChildsForm(updatedForm);
 
-        const updatedChildrenForm = [...childrenFormState];
-        updatedChildrenForm.splice(index,1);
-        setChildrenFormState(updatedChildrenForm);
+    const updatedChildrenForm = [...childrenFormState];
+    updatedChildrenForm.splice(index, 1);
+    setChildrenFormState(updatedChildrenForm);
 
     if (NumOfChildren > 0) {
       setNumOfChildren(NumOfChildren - 1);
     }
   }
-
-  }
-
-
-
 
   function AddChild() {
 
@@ -187,12 +176,7 @@ export default function AddDetailes() {
     setNumOfChildren(NumOfChildren + 1);
     setChildsForm([
       ...childsForm,
-       <div>
-
-    setNumOfChildren(NumOfChildren + 1)
-    setForm([
-      ...form,
-      <>
+      (<>
         <Form.Group id="chiledName">
           <Form.Label>שם הילד</Form.Label>
           <Form.Control type="string" ref={nameRef} required />
@@ -201,12 +185,9 @@ export default function AddDetailes() {
           <Form.Label> גיל הילד</Form.Label>
           <Form.Control type="number" ref={ageRef} required />
         </Form.Group>
-      </div>
-
-
-      </>
+      </>)
     ]);
-console.log(childsForm);
+    console.log(childsForm);
   }
 
   return (
@@ -228,26 +209,12 @@ console.log(childsForm);
                   <Form.Label>שם משפחה</Form.Label>
                   <Form.Control type="string" ref={SnameRef} required />
                 </Form.Group>
-                {
-                  childsForm.map((item,i) => { return (<div> {item} <MdPersonRemove className="right curser" onClick={()=>removeChield(i)} />
-</div>) })}
-
-                <Button
-                  className="w-100 mt-5 bg-dark-blue"
-                  onClick={() => AddChild()}
-                >
-                  הוסף ילד
-                </Button>
-
-                <Button className="w-100 mt-5 bg-dark-blue" type="submit">
-                  המשך
-                {form.map((item) => item)}
+                {childsForm.map((item, i) => { return (<div> {item} <MdPersonRemove className="right curser" onClick={() => removeChield(i)} /></div>) })}
                 <Button onClick={() => AddChild()} className="w-100 mt-2">
                   הוסף ילד
                 </Button>
-
-                <Button className="w-100 mt-5" type="submit">
-                  המשך{" "}
+                <Button className="w-100 mt-5 bg-dark-blue" type="submit">
+                  המשך
                 </Button>
               </Form>
             </Card.Body>
@@ -255,5 +222,5 @@ console.log(childsForm);
         </div>
       </Container>
     </>
-  );
+  )
 }
