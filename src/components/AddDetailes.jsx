@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
-import { doc, setDoc } from "firebase/firestore";
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
 import { MdPersonRemove } from "react-icons/md";
-import { IoMdPersonAdd } from "react-icons/io";
 import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
 import * as funEmoji from '@dicebear/fun-emoji';
@@ -14,7 +12,6 @@ import * as funEmoji from '@dicebear/fun-emoji';
 export default function AddDetailes() {
   const PnameRef = useRef();
   const SnameRef = useRef();
-  const [NumOfChildren, setNumOfChildren] = useState(0);
   const [currentChildrenDetails , setCurrentChildrenDetails] = useState([])
   const { setCurrenUserInfoState } = useCurrenUserInfo();
 
@@ -26,7 +23,7 @@ export default function AddDetailes() {
     const UsersDetailes = {
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
-      numOfChildren: NumOfChildren,
+      numOfChildren: currentChildrenDetails.length,
       childrensInfo: currentChildrenDetails.map((item) => {
         return {
         name: item.name,
@@ -124,18 +121,17 @@ export default function AddDetailes() {
         }
       }})
     };
+    console.log(UsersDetailes);
     setCurrenUserInfoState(UsersDetailes);
   }
 
   function removeChield( id) {    
     setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
-    setNumOfChildren(NumOfChildren - 1);
   }
 
 
   function AddChild() {
     let uniqId = uuid4();
-    setNumOfChildren(NumOfChildren + 1);
     setCurrentChildrenDetails([...currentChildrenDetails, {id: uniqId,"name":"", "age":0}]);
   }
   
