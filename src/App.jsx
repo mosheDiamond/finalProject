@@ -5,11 +5,11 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import SignUp from "./components/SignUp";
 import Login from './components/Login'
 import ForgotPassword from "./components/ForgotPassword";
-import { Container } from "react-bootstrap";
 import './style/style.css'
 import AddDetailes from "./components/AddDetailes";
 import AboutUs from "./components/AboutUs";
 import PersonalMainPage from "./components/PersonalMainPage";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ export default function App() {
       <Route path="/addDetailes" element={<AddDetailes/>}/>
       <Route path="/user/main/:userId" element={<PersonalMainPage/>}/>
     </Routes>
+    <Footer/>
     </>
   )
 }
