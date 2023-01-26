@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { doc, setDoc } from "firebase/firestore";
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
@@ -15,10 +15,7 @@ export default function AddDetailes() {
   const PnameRef = useRef();
   const SnameRef = useRef();
   const [NumOfChildren, setNumOfChildren] = useState(0);
-  const nameRef = useRef();
-  const ageRef = useRef();
-  const [childrenFormState, setChildrenFormState] = useState([]);
-  const [childsForm, setChildsForm] = useState([]);
+  const [currentChildrenDetails , setCurrentChildrenDetails] = useState([])
   const { setCurrenUserInfoState } = useCurrenUserInfo();
 
 
@@ -30,17 +27,10 @@ export default function AddDetailes() {
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
       numOfChildren: NumOfChildren,
-      childrensInfo: [
-        ...childrenFormState,
-        {
-          name: nameRef.current.value,
-          age: ageRef.current.value,
-        },
-      ],
-      childrensInfo: (NumOfChildren > 0) ? [...childrenFormState,
-      {
-        name: nameRef.current.value,
-        age: ageRef.current.value,
+      childrensInfo: currentChildrenDetails.map((item) => {
+        return {
+        name: item.name,
+        age: item.age,
         milestones: {
           "sixWeeksToThree": {
             jyrx6457: "unknown",
@@ -132,62 +122,32 @@ export default function AddDetailes() {
             q9dnml107: "unknown",
           }
         }
-      }
-
-      ] : []
+      }})
     };
     setCurrenUserInfoState(UsersDetailes);
-    console.log(UsersDetailes);
   }
 
-  function UpdateChildDetails() {
-    if (NumOfChildren > 0) {
-
-      console.log("hi this is us")
-      setChildrenFormState([
-        ...childrenFormState,
-        {
-          name: nameRef.current.value,
-          age: ageRef.current.value,
-        },
-      ]);
-    }
-
+  function removeChield( id) {    
+    setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
+    setNumOfChildren(NumOfChildren - 1);
   }
 
-  function removeChield(index) {
-    console.log(index);
-    const updatedForm = [...childsForm];
-    updatedForm.splice(index, 1);
-    setChildsForm(updatedForm);
-
-    const updatedChildrenForm = [...childrenFormState];
-    updatedChildrenForm.splice(index, 1);
-    setChildrenFormState(updatedChildrenForm);
-
-    if (NumOfChildren > 0) {
-      setNumOfChildren(NumOfChildren - 1);
-    }
-  }
 
   function AddChild() {
-
-    UpdateChildDetails();
+    let uniqId = uuid4();
     setNumOfChildren(NumOfChildren + 1);
-    setChildsForm([
-      ...childsForm,
-      (<>
-        <Form.Group id="chiledName">
-          <Form.Label>שם הילד</Form.Label>
-          <Form.Control type="string" ref={nameRef} required />
-        </Form.Group>
-        <Form.Group id="chiledsAge">
-          <Form.Label> גיל הילד</Form.Label>
-          <Form.Control type="number" ref={ageRef} required />
-        </Form.Group>
-      </>)
-    ]);
-    console.log(childsForm);
+    setCurrentChildrenDetails([...currentChildrenDetails, {id: uniqId,"name":"", "age":0}]);
+  }
+  
+  function SaveChildrenNames(e, type,  id){
+    let temp = [...currentChildrenDetails];
+    temp.forEach((item)=>{
+      if(item.id == id){
+        item[type] = e.target.value;
+      }
+      return item
+    })
+    setCurrentChildrenDetails(temp)
   }
 
   return (
@@ -209,11 +169,23 @@ export default function AddDetailes() {
                   <Form.Label>שם משפחה</Form.Label>
                   <Form.Control type="string" ref={SnameRef} required />
                 </Form.Group>
-                {childsForm.map((item, i) => { return (<div> {item} <MdPersonRemove className="right curser" onClick={() => removeChield(i)} /></div>) })}
+                {currentChildrenDetails.map((item) => {
+                  return(<div key={item.id}>
+                  <Form.Group id="chiledName">
+                    <Form.Label>שם הילד</Form.Label>
+                    <Form.Control onKeyUp={(e) => SaveChildrenNames(e, 'name', item.id)} type="string" required />
+                  </Form.Group>
+                  <Form.Group id="chiledsAge">
+                    <Form.Label> גיל הילד</Form.Label>
+                    <Form.Control  onKeyUp={(e) => SaveChildrenNames(e, 'age', item.id)}  type="number" required />
+                  </Form.Group>
+                  <MdPersonRemove className="right curser" onClick={() => removeChield(item.id)} />
+                </div>)
+                })}
                 <Button onClick={() => AddChild()} className="w-100 mt-2">
                   הוסף ילד
                 </Button>
-                <Button className="w-100 mt-5 bg-dark-blue" type="submit">
+                <Button className="w-100 mt-5" type="submit">
                   המשך
                 </Button>
               </Form>
