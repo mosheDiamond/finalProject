@@ -25,7 +25,7 @@ export default function AddDetailes() {
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
       numOfChildren: NumOfChildren,
-      childrensInfo: (childrenFormState.length > 0)? [...childrenFormState,
+      childrensInfo: (NumOfChildren > 0)? [...childrenFormState,
       {
         name: nameRef.current.value,
         age: ageRef.current.value,
