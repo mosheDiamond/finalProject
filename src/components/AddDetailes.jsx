@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
@@ -12,15 +11,23 @@ import * as funEmoji from '@dicebear/fun-emoji';
 export default function AddDetailes() {
   const PnameRef = useRef();
   const SnameRef = useRef();
-  const [currentChildrenDetails , setCurrentChildrenDetails] = useState([])
+  const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
   const { setCurrenUserInfoState } = useCurrenUserInfo();
 
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-
+    const avatar = createAvatar(funEmoji, {
+      seed: PnameRef.current.value,
+      radius: 50,
+      size: 64,
+      mouth: ["cute","lilSmile","smileLol","smileTeeth","wideSmile"],
+      eyes: ["closed","closed2","cute","glasses","shades","wink"]
+    });
+    const json = await avatar.toDataUri(); 
     const UsersDetailes = {
+      avatar: json,
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
       numOfChildren: currentChildrenDetails.length,
@@ -138,7 +145,7 @@ export default function AddDetailes() {
   function SaveChildrenNames(e, type,  id){
     let temp = [...currentChildrenDetails];
     temp.forEach((item)=>{
-      if(item.id == id){
+      if(item.id === id){
         item[type] = e.target.value;
       }
       return item
