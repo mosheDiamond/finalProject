@@ -21,7 +21,7 @@ export default function Header() {
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav ">
-          <Nav className="col-9 col-lg-6 d-lg-flex justify-content-evenly align-items-center ">
+          <Nav className="col-12 col-lg-6 d-lg-flex justify-content-evenly align-items-start align-items-md-center ">
             <Link to={'../../'} className='link-light text-decoration-none fs-4'>דף הבית</Link>
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
             {(currenUserInfoState)?

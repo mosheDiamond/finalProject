@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
     function logout() {
 
         setCurrenUserInfoState(null);
-        return signOut();
+        return signOut(auth);
     }
     function resetPassword(email) {
         return sendPasswordResetEmail(auth, email);

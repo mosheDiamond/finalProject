@@ -1,6 +1,7 @@
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
+import { useAuth } from "../Context/AuthContext";
 import { MdPersonRemove } from "react-icons/md";
 import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
@@ -8,7 +9,9 @@ import * as funEmoji from '@dicebear/fun-emoji';
 
 
 
+
 export default function AddDetailes() {
+  const { currentUser } = useAuth();
   const PnameRef = useRef();
   const SnameRef = useRef();
   const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
@@ -135,7 +138,6 @@ export default function AddDetailes() {
   function removeChield( id) {    
     setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
   }
-
 
   function AddChild() {
     let uniqId = uuid4();
