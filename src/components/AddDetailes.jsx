@@ -1,46 +1,43 @@
-import React from "react";
-import { doc, setDoc } from "firebase/firestore";
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
+import { useAuth } from "../Context/AuthContext";
 import { MdPersonRemove } from "react-icons/md";
-import { IoMdPersonAdd } from "react-icons/io";
 import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
 import * as funEmoji from '@dicebear/fun-emoji';
 
 
 
+
 export default function AddDetailes() {
+  const { currentUser } = useAuth();
   const PnameRef = useRef();
   const SnameRef = useRef();
-  const [NumOfChildren, setNumOfChildren] = useState(0);
-  const nameRef = useRef();
-  const ageRef = useRef();
-  const [childrenFormState, setChildrenFormState] = useState([]);
-  const [childsForm, setChildsForm] = useState([]);
+  const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
   const { setCurrenUserInfoState } = useCurrenUserInfo();
 
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
 
-
+    const avatar = createAvatar(funEmoji, {
+      seed: PnameRef.current.value,
+      radius: 50,
+      size: 64,
+      mouth: ["cute","lilSmile","smileLol","smileTeeth","wideSmile"],
+      eyes: ["closed","closed2","cute","glasses","shades","wink"]
+    });
+    const json = await avatar.toDataUri(); 
     const UsersDetailes = {
+      avatar: json,
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
-      numOfChildren: NumOfChildren,
-      childrensInfo: [
-        ...childrenFormState,
-        {
-          name: nameRef.current.value,
-          age: ageRef.current.value,
-        },
-      ],
-      childrensInfo: (NumOfChildren > 0) ? [...childrenFormState,
-      {
-        name: nameRef.current.value,
-        age: ageRef.current.value,
+      numOfChildren: currentChildrenDetails.length,
+      childrensInfo: currentChildrenDetails.map((item) => {
+        return {
+        name: item.name,
+        age: item.age,
         milestones: {
           "sixWeeksToThree": {
             jyrx6457: "unknown",
@@ -132,62 +129,30 @@ export default function AddDetailes() {
             q9dnml107: "unknown",
           }
         }
-      }
-
-      ] : []
+      }})
     };
-    setCurrenUserInfoState(UsersDetailes);
     console.log(UsersDetailes);
+    setCurrenUserInfoState(UsersDetailes);
   }
 
-  function UpdateChildDetails() {
-    if (NumOfChildren > 0) {
-
-      console.log("hi this is us")
-      setChildrenFormState([
-        ...childrenFormState,
-        {
-          name: nameRef.current.value,
-          age: ageRef.current.value,
-        },
-      ]);
-    }
-
-  }
-
-  function removeChield(index) {
-    console.log(index);
-    const updatedForm = [...childsForm];
-    updatedForm.splice(index, 1);
-    setChildsForm(updatedForm);
-
-    const updatedChildrenForm = [...childrenFormState];
-    updatedChildrenForm.splice(index, 1);
-    setChildrenFormState(updatedChildrenForm);
-
-    if (NumOfChildren > 0) {
-      setNumOfChildren(NumOfChildren - 1);
-    }
+  function removeChield( id) {    
+    setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
   }
 
   function AddChild() {
-
-    UpdateChildDetails();
-    setNumOfChildren(NumOfChildren + 1);
-    setChildsForm([
-      ...childsForm,
-      (<>
-        <Form.Group id="chiledName">
-          <Form.Label>שם הילד</Form.Label>
-          <Form.Control type="string" ref={nameRef} required />
-        </Form.Group>
-        <Form.Group id="chiledsAge">
-          <Form.Label> גיל הילד</Form.Label>
-          <Form.Control type="number" ref={ageRef} required />
-        </Form.Group>
-      </>)
-    ]);
-    console.log(childsForm);
+    let uniqId = uuid4();
+    setCurrentChildrenDetails([...currentChildrenDetails, {id: uniqId,"name":"", "age":0}]);
+  }
+  
+  function SaveChildrenNames(e, type,  id){
+    let temp = [...currentChildrenDetails];
+    temp.forEach((item)=>{
+      if(item.id === id){
+        item[type] = e.target.value;
+      }
+      return item
+    })
+    setCurrentChildrenDetails(temp)
   }
 
   return (
@@ -209,11 +174,23 @@ export default function AddDetailes() {
                   <Form.Label>שם משפחה</Form.Label>
                   <Form.Control type="string" ref={SnameRef} required />
                 </Form.Group>
-                {childsForm.map((item, i) => { return (<div> {item} <MdPersonRemove className="right curser" onClick={() => removeChield(i)} /></div>) })}
+                {currentChildrenDetails.map((item) => {
+                  return(<div key={item.id}>
+                  <Form.Group id="chiledName">
+                    <Form.Label>שם הילד</Form.Label>
+                    <Form.Control onKeyUp={(e) => SaveChildrenNames(e, 'name', item.id)} type="string" required />
+                  </Form.Group>
+                  <Form.Group id="chiledsAge">
+                    <Form.Label> גיל הילד</Form.Label>
+                    <Form.Control  onKeyUp={(e) => SaveChildrenNames(e, 'age', item.id)}  type="number" required />
+                  </Form.Group>
+                  <MdPersonRemove className="right curser" onClick={() => removeChield(item.id)} />
+                </div>)
+                })}
                 <Button onClick={() => AddChild()} className="w-100 mt-2">
                   הוסף ילד
                 </Button>
-                <Button className="w-100 mt-5 bg-dark-blue" type="submit">
+                <Button className="w-100 mt-5" type="submit">
                   המשך
                 </Button>
               </Form>

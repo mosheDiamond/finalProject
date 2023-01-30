@@ -10,8 +10,12 @@ import AddDetailes from "./components/AddDetailes";
 import AboutUs from "./components/AboutUs";
 import PersonalMainPage from "./components/PersonalMainPage";
 import Footer from "./components/Footer";
+import { useAuth } from "./Context/AuthContext";
+import ErrNotLoggedIn from "./components/ErrNotLoggedIn";
 
 export default function App() {
+  const { currentUser } = useAuth();
+
   return (
     <>
     <Header/>
@@ -21,8 +25,8 @@ export default function App() {
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
-      <Route path="/addDetailes" element={<AddDetailes/>}/>
-      <Route path="/user/main/:userId" element={<PersonalMainPage/>}/>
+      <Route path="/addDetailes" element={(currentUser)?<AddDetailes/>:<ErrNotLoggedIn/>}/>
+      <Route path="/user/main" element={(currentUser)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
     </Routes>
     <Footer/>
     </>
