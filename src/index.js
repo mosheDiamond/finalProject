@@ -6,18 +6,20 @@ import App from './App';
 import { AuthProvider } from './Context/AuthContext';
 import { CurrenUserInfoProvider } from './Context/CurrenUserInfoContext';
 import { DataProvider } from './Context/DataContext';
-
+import { FirestoreProvider } from './Context/FireStoreContext';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <FirestoreProvider>
   <DataProvider>
   <BrowserRouter>
     <CurrenUserInfoProvider>
-      <AuthProvider>      
+      <AuthProvider>
         <App />
-      </AuthProvider>  
-    </CurrenUserInfoProvider>    
+      </AuthProvider>
+    </CurrenUserInfoProvider>
   </BrowserRouter>
   </DataProvider>
+  </FirestoreProvider>
 );
