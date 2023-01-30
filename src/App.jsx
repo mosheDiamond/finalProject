@@ -12,6 +12,7 @@ import PersonalMainPage from "./components/PersonalMainPage";
 import Footer from "./components/Footer";
 import { useAuth } from "./Context/AuthContext";
 import ErrNotLoggedIn from "./components/ErrNotLoggedIn";
+import ChildPage from "./components/ChildPage";
 
 export default function App() {
   const { currentUser } = useAuth();
@@ -27,6 +28,7 @@ export default function App() {
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/addDetailes" element={(currentUser)?<AddDetailes/>:<ErrNotLoggedIn/>}/>
       <Route path="/user/main" element={(currentUser)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
+      <Route path="/child/:name" element={(currentUser)?<ChildPage/>:<ErrNotLoggedIn/>}/>
     </Routes>
     <Footer/>
     </>

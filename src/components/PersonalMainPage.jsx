@@ -13,11 +13,11 @@ export default function PersonalMainPage() {
       <card><h1>{currenUserInfoState.pName} {currenUserInfoState.sName}</h1></card>
       <div className="d-flex col-8 col-md-3 flex-column  text-center  justify-content-between">
       {currenUserInfoState.childrensInfo.map((child,i)=>{
-        return(<div className="col-12 text-center btn btn-light rounded-pill m-3">
-                   <Link key={i} to={`../../child/${child.name}`} className='col-12 text-dark text-decoration-none fs-4'>
-                    {child.name}
-                    </Link>
-                    </div>)
+        return(<Link key={i} to={`../../child/${child.name}`}  className="col-12 text-center btn btn-light rounded-pill m-3">
+                   <div className='col-12 text-dark text-decoration-none fs-4'>
+                    {child.name}                    
+                    </div>
+                    </Link>)
                 })}
     </div>
     </div>
