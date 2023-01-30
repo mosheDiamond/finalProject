@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import {useFirestore} from '../Context/FireStoreContext'
+import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const emailRef = useRef();
@@ -11,7 +14,9 @@ export default function Login() {
   const { login,currentUser } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const navigate=useNavigate();
+const {getDataFS}=useFirestore();
+const {currenUserInfoState,setCurrenUserInfoState}=useCurrenUserInfo();
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -20,10 +25,16 @@ export default function Login() {
       setError("");
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
+      const fetchInfo = await getDataFS(currentUser.uid);
+      setCurrenUserInfoState(fetchInfo);
+
     } catch {
-      setError("שגיאת התחברות נסה שנית!");
+      setLoading(false);
+     return setError("שגיאת התחברות נסה שנית!");
     }
-    setLoading(false);
+     setLoading(false);
+     console.log(currenUserInfoState);
+    navigate('../../user/main');
   }
 
   return (
