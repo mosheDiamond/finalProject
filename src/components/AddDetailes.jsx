@@ -6,12 +6,18 @@ import { MdPersonRemove } from "react-icons/md";
 import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
 import * as funEmoji from '@dicebear/fun-emoji';
+import {useFirestore} from '../Context/FireStoreContext'
+
+
 export default function AddDetailes() {
   const { currentUser } = useAuth();
   const PnameRef = useRef();
   const SnameRef = useRef();
   const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
-  const { setCurrenUserInfoState } = useCurrenUserInfo();
+  const { currenUserInfoState,setCurrenUserInfoState } = useCurrenUserInfo();
+  const {addFS}=useFirestore();
+
+
   async function handleSubmit(e) {
     e.preventDefault();
     const avatar = createAvatar(funEmoji, {
@@ -126,6 +132,7 @@ export default function AddDetailes() {
     };
     console.log(UsersDetailes);
     setCurrenUserInfoState(UsersDetailes);
+    addFS(currentUser.uid,UsersDetailes);
   }
   function removeChield( id) {
     setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
