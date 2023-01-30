@@ -1,22 +1,28 @@
+import React from "react";
 import { Card, Button, Form, Alert, Container } from "react-bootstrap";
 import { useRef, useState } from "react";
 import { useCurrenUserInfo } from "../Context/CurrenUserInfoContext";
+import { useAuth } from "../Context/AuthContext";
 import { MdPersonRemove } from "react-icons/md";
+import { IoMdPersonAdd } from "react-icons/io";
 import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
 import * as funEmoji from '@dicebear/fun-emoji';
-import { useNavigate } from "react-router-dom";
+
+
 
 
 export default function AddDetailes() {
-  const navigate=useNavigate();
+  const { currentUser } = useAuth();
   const PnameRef = useRef();
   const SnameRef = useRef();
   const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
   const { setCurrenUserInfoState } = useCurrenUserInfo();
-  
+
+
   async function handleSubmit(e) {
     e.preventDefault();
+
     const avatar = createAvatar(funEmoji, {
       seed: PnameRef.current.value,
       radius: 50,
@@ -24,16 +30,16 @@ export default function AddDetailes() {
       mouth: ["cute","lilSmile","smileLol","smileTeeth","wideSmile"],
       eyes: ["closed","closed2","cute","glasses","shades","wink"]
     });
-    const json = await avatar.toDataUri();
+    const json = await avatar.toDataUri(); 
     const UsersDetailes = {
-      avatar: json,
       pName: PnameRef.current.value,
       sName: SnameRef.current.value,
-      numOfChildren: currentChildrenDetails.length,
-      childrensInfo: currentChildrenDetails.map((item) => {
-        return {
-        name: item.name,
-        age: item.age,
+      numOfChildren: NumOfChildren,
+
+      childrensInfo: (NumOfChildren > 0) ? [...childrenFormState,
+      {
+        name: nameRef.current.value,
+        age: ageRef.current.value,
         milestones: {
           "sixWeeksToThree": {
             jyrx6457: "unknown",
@@ -125,19 +131,21 @@ export default function AddDetailes() {
             q9dnml107: "unknown",
           }
         }
-      }})
+      }
+
+      ] : []
     };
-    console.log(UsersDetailes);
     setCurrenUserInfoState(UsersDetailes);
-    navigate('../../user/main');
   }
-  function removeChield( id) {
+
+  function removeChield( id) {    
     setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));
   }
   function AddChild() {
     let uniqId = uuid4();
     setCurrentChildrenDetails([...currentChildrenDetails, {id: uniqId,"name":"", "age":0}]);
   }
+  
   function SaveChildrenNames(e, type,  id){
     let temp = [...currentChildrenDetails];
     temp.forEach((item)=>{
@@ -167,26 +175,15 @@ export default function AddDetailes() {
                   <Form.Label>שם משפחה</Form.Label>
                   <Form.Control type="string" ref={SnameRef} required />
                 </Form.Group>
-                {currentChildrenDetails.map((item) => {
-                  return(<div key={item.id}>
-                  <Form.Group id="chiledName">
-                    <Form.Label>שם הילד</Form.Label>
-                    <Form.Control onKeyUp={(e) => SaveChildrenNames(e, 'name', item.id)} type="string" required />
-                  </Form.Group>
-                  <Form.Group id="chiledsAge">
-                    <Form.Label> גיל הילד</Form.Label>
-                    <Form.Control  onKeyUp={(e) => SaveChildrenNames(e, 'age', item.id)}  type="number" required />
-                  </Form.Group>
-                  <MdPersonRemove className="right curser" onClick={() => removeChield(item.id)} />
-                </div>)
-                })}
+                {childsForm.map((item, i) => { return (<div> {item} <MdPersonRemove className="right" onClick={()=>removeChield(i)} /></div>) })}
                 <Button onClick={() => AddChild()} className="w-100 mt-2">
                   הוסף ילד
                 </Button>
-                <Button className="w-100 mt-5" type="submit">
+                <Button className="w-100 mt-5 bg-dark-blue" type="submit">
                   המשך
                 </Button>
               </Form>
+              <button onClick={checkFireStore()}>checking firestore functions</button>
             </Card.Body>
           </Card>
         </div>
