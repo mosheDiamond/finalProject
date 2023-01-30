@@ -21,7 +21,7 @@ export default function Header() {
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav ">
-          <Nav className="col-9 col-lg-6 d-lg-flex justify-content-evenly align-items-center ">
+          <Nav className="col-12 col-lg-6 d-lg-flex justify-content-evenly align-items-start align-items-md-center ">
             <Link to={'../../'} className='link-light text-decoration-none fs-4'>דף הבית</Link>
             <Link to={'../../about'} className='link-light text-decoration-none fs-4'>עלינו</Link>
             {(currenUserInfoState)?
@@ -31,7 +31,7 @@ export default function Header() {
               <NavDropdown title="ילדים" className="text-nothing text-decoration-none fs-4 " id="navbarScrollingDropdown">
                 <div className="d-flex flex-column text-center  justify-content-between">
                 {currenUserInfoState.childrensInfo.map((child,i)=>{
-                  return <Link to={`../../child/${child.name}`} className='link-primary text-decoration-none p-1 fs-4'>{child.name}</Link>
+                  return <Link key={i} to={`../../child/${child.name}`} className='link-primary text-decoration-none p-1 fs-4'>{child.name}</Link>
                 })}</div>
             </NavDropdown>
             ):null}
@@ -41,7 +41,7 @@ export default function Header() {
         <Dropdown className="  m-3 m-md-0 position-absolute position-md-static end-50 top-0 col-2 col-md-1">
             <Dropdown.Toggle className="bg-dark-blue border-0  "  id="dropdown-basic">
               <div className="col-md-10 border rounded-circle  border-white">
-                <img src={genPerson} alt="" className="img-fluid" style={{ mixBlendMode: 'color-burn' }} />
+                <img src={(currenUserInfoState)? currenUserInfoState.avatar : genPerson} alt="" className="img-fluid" style={(currenUserInfoState)? null:{ mixBlendMode: 'color-burn' }} />
               </div>
             </Dropdown.Toggle>
           <Dropdown.Menu className="bg-nothing m-2 p-2">
