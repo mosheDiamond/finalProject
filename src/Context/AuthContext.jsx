@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState();
     const [loading, setLoading] = useState(true);
     const { setCurrenUserInfoState } = useCurrenUserInfo();
-    
+
     function signup(email, password) {
         return createUserWithEmailAndPassword(auth, email, password)
     }
@@ -35,6 +35,7 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user);
+            console.log("status of user:",currentUser);
             setLoading(false);
         })
         return unsubscribe
