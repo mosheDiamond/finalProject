@@ -25,7 +25,7 @@ export default function SignUp() {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
     } catch {
-      setError("שגיאה ביצירת חשבון");
+      return setError("שגיאה ביצירת חשבון");
     }
     setLoading(false);
     navigate('/addDetailes')
