@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import { useEffect } from "react";
 
 const CurrenUserInfoContext = createContext();
 
@@ -9,6 +10,10 @@ export function CurrenUserInfoProvider({ children }) {
     currenUserInfoState,
     setCurrenUserInfoState,
   };
+
+  useEffect(()=>{
+    setCurrenUserInfoState(null);
+  },[])
 
   return <CurrenUserInfoContext.Provider value={value}>{children}</CurrenUserInfoContext.Provider>;
 }

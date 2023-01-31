@@ -10,12 +10,12 @@ import AddDetailes from "./components/AddDetailes";
 import AboutUs from "./components/AboutUs";
 import PersonalMainPage from "./components/PersonalMainPage";
 import Footer from "./components/Footer";
-import { useAuth } from "./Context/AuthContext";
+import { useCurrenUserInfo } from "./Context/CurrenUserInfoContext";
 import ErrNotLoggedIn from "./components/ErrNotLoggedIn";
 import ChildPage from "./components/ChildPage";
 
 export default function App() {
-  const { currentUser } = useAuth();
+  const{currenUserInfoState} = useCurrenUserInfo();
 
   return (
     <>
@@ -26,9 +26,9 @@ export default function App() {
       <Route path="/signup" element={<SignUp/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
-      <Route path="/addDetailes" element={(currentUser)?<AddDetailes/>:<ErrNotLoggedIn/>}/>
-      <Route path="/user/main" element={(currentUser)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
-      <Route path="/child/:name" element={(currentUser)?<ChildPage/>:<ErrNotLoggedIn/>}/>
+      <Route path="/addDetailes" element={(currenUserInfoState)?<AddDetailes/>:<ErrNotLoggedIn/>}/>
+      <Route path="/user/main" element={(currenUserInfoState)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
+      <Route path="/child/:name" element={(currenUserInfoState)?<ChildPage/>:<ErrNotLoggedIn/>}/>
     </Routes>
     <Footer/>
     </>

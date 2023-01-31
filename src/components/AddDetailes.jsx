@@ -21,7 +21,6 @@ export default function AddDetailes() {
   async function handleSubmit(e) {
     e.preventDefault();
     const avatar = createAvatar(funEmoji, {
-      seed: PnameRef.current.value,
       radius: 50,
       size: 64,
       mouth: ["cute","lilSmile","smileLol","smileTeeth","wideSmile"],
