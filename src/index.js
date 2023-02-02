@@ -14,11 +14,11 @@ root.render(
   <FirestoreProvider>
   <DataProvider>
   <BrowserRouter>
-    <CurrenUserInfoProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <CurrenUserInfoProvider>
         <App />
-      </AuthProvider>
-    </CurrenUserInfoProvider>
+      </CurrenUserInfoProvider>
+    </AuthProvider>
   </BrowserRouter>
   </DataProvider>
   </FirestoreProvider>
