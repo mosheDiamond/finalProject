@@ -14,7 +14,7 @@ export default function Header() {
   const {logout} = useAuth();
   
   return (
-    <Navbar collapseOnSelect expand="md" dir='rtl' className="bg-dark-blue">
+    <Navbar expand="md" dir='rtl' className="bg-dark-blue">
       <Container>
         <Link to={''} className='col-lg-1 col-4 col-md-2 '>
           <img src={siteLogo} alt="" className="img-fluid " />

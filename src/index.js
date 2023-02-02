@@ -15,11 +15,9 @@ root.render(
   <DataProvider>
   <BrowserRouter>
   <AuthProvider>
-
     <CurrenUserInfoProvider>
         <App />
         </CurrenUserInfoProvider>
-
       </AuthProvider>
   </BrowserRouter>
   </DataProvider>
