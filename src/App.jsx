@@ -30,8 +30,8 @@ export default function App() {
       <Route path="/login" element={<Login/>}/>
       <Route path="/forgotPassword" element={<ForgotPassword/>}/>
       <Route path="/addDetailes" element={(currentUser)?<AddDetailes/>:<ErrNotLoggedIn/>}/>
-      <Route path="/user/main" element={(currenUserInfoState)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
-      <Route path="/child/:name" element={(currenUserInfoState)?<ChildPage/>:<ErrNotLoggedIn/>}/>
+      <Route path="/user/main" element={(currentUser)?<PersonalMainPage/>:<ErrNotLoggedIn/>}/>
+      <Route path="/child/:name" element={(currentUser)?<ChildPage/>:<ErrNotLoggedIn/>}/>
     </Routes>
     <Footer/>
     </>

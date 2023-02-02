@@ -17,7 +17,7 @@ export default function AddDetailes() {
   const { currenUserInfoState,setCurrenUserInfoState } = useCurrenUserInfo();
   const {addFS}=useFirestore();
   const navigate=useNavigate();
-  
+
   async function handleSubmit(e) {
     e.preventDefault();
     const avatar = createAvatar(funEmoji, {
@@ -155,11 +155,12 @@ export default function AddDetailes() {
     <>
       <Container
         dir="rtl"
-        className="d-flex align-items-center justify-content-center"
+        className="d-flex flex-column align-items-center justify-content-center"
         style={{ minHeight: "100vh" }}
       >
+        <h2>פרטים נוספים:</h2>
         <div className="w-100" style={{ maxWidth: "400px" }}>
-          <Card>
+          <Card className=' border-primary'>
             <Card.Body>
               <Form onSubmit={handleSubmit}>
                 <Form.Group id="pname">
@@ -171,7 +172,7 @@ export default function AddDetailes() {
                   <Form.Control type="string" ref={SnameRef} required />
                 </Form.Group>
                 {currentChildrenDetails.map((item) => {
-                  return(<div key={item.id}>
+                  return(<div className='border border-primary p-1 rounded mt-2' key={item.id}>
                   <Form.Group id="chiledName">
                     <Form.Label>שם הילד</Form.Label>
                     <Form.Control onKeyUp={(e) => SaveChildrenNames(e, 'name', item.id)} type="string" required />
