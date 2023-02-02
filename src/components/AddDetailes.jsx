@@ -7,7 +7,7 @@ import { uuid4 } from "uuid4";
 import { createAvatar } from '@dicebear/core';
 import * as funEmoji from '@dicebear/fun-emoji';
 import {useFirestore} from '../Context/FireStoreContext'
-
+import { useNavigate } from "react-router-dom";
 
 export default function AddDetailes() {
   const { currentUser } = useAuth();
@@ -16,12 +16,11 @@ export default function AddDetailes() {
   const [currentChildrenDetails , setCurrentChildrenDetails] = useState([]);
   const { currenUserInfoState,setCurrenUserInfoState } = useCurrenUserInfo();
   const {addFS}=useFirestore();
-
-
+  const navigate=useNavigate();
+  
   async function handleSubmit(e) {
     e.preventDefault();
     const avatar = createAvatar(funEmoji, {
-      seed: PnameRef.current.value,
       radius: 50,
       size: 64,
       mouth: ["cute","lilSmile","smileLol","smileTeeth","wideSmile"],
@@ -133,6 +132,7 @@ export default function AddDetailes() {
     console.log(UsersDetailes);
     setCurrenUserInfoState(UsersDetailes);
     addFS(currentUser.uid,UsersDetailes);
+    navigate('../../user/main');
   }
   function removeChield( id) {
     setCurrentChildrenDetails(currentChildrenDetails.filter((item) =>{return item.id !== id}));

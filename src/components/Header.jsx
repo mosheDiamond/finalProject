@@ -12,7 +12,7 @@ import { useAuth } from "../Context/AuthContext";
 export default function Header() {
   const{currenUserInfoState} = useCurrenUserInfo();
   const {logout} = useAuth();
-
+  
   return (
     <Navbar collapseOnSelect expand="md" dir='rtl' className="bg-dark-blue">
       <Container>
